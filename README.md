@@ -96,6 +96,9 @@ src/
 └── utils/
     └── debtSimplifier.js
 
+
+
+
 🚀 Setup Instructions
 1. Clone the repository
 Bash
