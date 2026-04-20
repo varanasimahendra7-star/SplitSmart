@@ -95,31 +95,37 @@ src/
 │   └── expenseService.js
 └── utils/
     └── debtSimplifier.js
+````
 
+-----
 
+## 🚀 Setup Instructions
 
+### 1\. Clone the repository
 
-🚀 Setup Instructions
-1. Clone the repository
-Bash
+```bash
 git clone [https://github.com/varanasimahendra7-star/SplitSmart.git](https://github.com/varanasimahendra7-star/SplitSmart.git)
 cd splitsmart
-2. Install dependencies
-Bash
+```
+
+### 2\. Install dependencies
+
+```bash
 npm install
-3. Set up Firebase
-Go to Firebase Console
+```
 
-Create a new project and enable Authentication (Google Sign-in)
+### 3\. Set up Firebase
 
-Create a Firestore Database
+1.  Go to [Firebase Console](https://console.firebase.google.com)
+2.  Create a new project and enable **Authentication** (Google Sign-in)
+3.  Create a **Firestore Database**
+4.  Register a **Web App** and copy the config object.
 
-Register a Web App and copy the config object.
+### 4\. Add Firebase config
 
-4. Add Firebase config
-Open src/services/firebase.js and replace the placeholder values:
+Open `src/services/firebase.js` and replace the placeholder values:
 
-JavaScript
+```js
 const firebaseConfig = {
   apiKey:            "YOUR_API_KEY",
   authDomain:        "YOUR_AUTH_DOMAIN",
@@ -128,10 +134,13 @@ const firebaseConfig = {
   messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
   appId:             "YOUR_APP_ID",
 }
-5. Firestore Security Rules
+```
+
+### 5\. Firestore Security Rules
+
 To secure the database, apply these rules in the Firebase Console → Firestore → Rules:
 
-JavaScript
+```javascript
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -149,17 +158,37 @@ service cloud.firestore {
     }
   }
 }
-6. Run the app
-Bash
+```
+
+### 6\. Run the app
+
+```bash
 npm run dev
-The app will run locally at http://localhost:5173
+```
 
-🌐 Deployment
-This application is configured for seamless deployment on Vercel.
+The app will run locally at `http://localhost:5173`
 
-Bash
+-----
+
+## 🌐 Deployment
+
+This application is configured for seamless deployment on [Vercel](https://vercel.com).
+
+```bash
 npm run build
-Note on Routing: A vercel.json file is included in the root directory to rewrite all traffic to index.html. This ensures that protected routes resolve correctly upon page refresh in the React Single Page Application (SPA).
+```
 
-👨‍💻 Author
-Varanasi Mahendra
+**Note on Routing:** A `vercel.json` file is included in the root directory to rewrite all traffic to `index.html`. This ensures that protected routes resolve correctly upon page refresh in the React Single Page Application (SPA).
+
+-----
+
+## 👨‍💻 Author
+
+**Varanasi Mahendra**
+
+  * [GitHub Profile](https://www.google.com/search?q=https://github.com/varanasimahendra7-star)
+
+<!-- end list -->
+
+```
+```
