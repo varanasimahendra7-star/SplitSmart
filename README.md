@@ -14,14 +14,14 @@ When friends travel together or share a flat, expenses get chaotic. People pay a
 
 ## ✨ Features
 
-- 🔐 **Google Authentication** — one-click sign in
-- 👥 **Groups** — create trip, home, event, or general groups
-- 💰 **Expense Tracking** — add, edit, delete expenses with category tags
-- 🧮 **Debt Simplification** — minimize transactions needed to settle (greedy algorithm)
-- 📊 **Spending Analytics** — category breakdown, member spending, daily trend charts
-- ✅ **Settlements** — mark debts as paid, track settlement history
-- 🔄 **Real-time Sync** — Firestore `onSnapshot` keeps everyone in sync instantly
-- 📱 **Responsive** — works on mobile and desktop
+- 🔐 **Google Authentication** — seamless one-click sign in
+- 👥 **Group Management** — create trip, home, event, or general groups
+- 💰 **Expense Tracking** — add, edit, and delete expenses with category tags
+- 🧮 **Debt Simplification** — minimizes the total transactions needed to settle up using a greedy algorithm
+- 📊 **Spending Analytics** — visual category breakdowns, member spending, and daily trend charts
+- ✅ **Settlements** — mark debts as paid and track settlement history via an Audit Trail
+- 🔄 **Real-Time Sync** — Firestore `onSnapshot` keeps the UI instantly updated across all devices
+- 📱 **Fully Responsive** — optimized for both mobile and desktop experiences
 
 ---
 
@@ -29,34 +29,26 @@ When friends travel together or share a flat, expenses get chaotic. People pay a
 
 | Layer       | Technology                    |
 |-------------|-------------------------------|
-| Frontend    | React 18, Vite                |
-| Routing     | React Router v6               |
-| State       | Context API, custom hooks     |
-| Backend     | Firebase (Auth + Firestore)   |
-| Charts      | Recharts                      |
-| Styling     | Tailwind CSS                  |
-| Toasts      | react-hot-toast               |
-| Icons       | lucide-react                  |
+| **Frontend** | React 18, Vite                |
+| **Routing** | React Router v6               |
+| **State** | Context API, Custom Hooks     |
+| **Backend** | Firebase (Auth + Firestore)   |
+| **Charts** | Recharts                      |
+| **Styling** | Tailwind CSS                  |
+| **Toasts** | react-hot-toast               |
+| **Icons** | lucide-react                  |
 
 ---
 
-## ⚛️ React Concepts Used
+## ⚙️ Architecture & Technical Highlights
 
-| Concept           | Where                                          |
-|-------------------|------------------------------------------------|
-| `useState`        | Forms, UI toggles, local state                 |
-| `useEffect`       | Firestore subscriptions, group fetch           |
-| `useMemo`         | Balance computation, chart data                |
-| `useCallback`     | Event handlers passed to child components      |
-| `useRef`          | (available for focus management)               |
-| Context API       | `AuthContext`, `GroupContext`                  |
-| Custom Hooks      | `useExpenses`, `useGroups`, `useBalances`, `useSettlements` |
-| React Router      | Nested routes, protected routes, params        |
-| `React.lazy`      | Code-split Dashboard, GroupDetail, Login       |
-| `Suspense`        | Fallback loader for lazy pages                 |
-| Controlled Forms  | All inputs managed via `useState`              |
-| Conditional Render| Loading/empty/error states throughout          |
-| Lists & Keys      | Expense list, member list, settlements         |
+To ensure scalability and performance, this project heavily leverages modern React patterns:
+
+* **State Optimization:** Complex math (like balance computation and chart data parsing) is wrapped in `useMemo` to prevent expensive recalculations during UI renders.
+* **Custom Hooks:** Business logic and Firebase subscriptions are abstracted into reusable custom hooks (`useExpenses`, `useBalances`, `useSettlements`).
+* **Real-Time Database:** Utilizes Firebase's `onSnapshot` for bi-directional, real-time data flow without manual refetching.
+* **Code Splitting:** Implements `React.lazy` and `Suspense` for route-based chunking (Dashboard, GroupDetail, Login) to improve initial load times.
+* **Separation of Concerns:** Strict folder architecture separating UI components, global context, and backend service layers.
 
 ---
 
@@ -65,18 +57,18 @@ When friends travel together or share a flat, expenses get chaotic. People pay a
 Located in `src/utils/debtSimplifier.js`.
 
 **How it works:**
-1. Compute each member's **net balance** (total paid − total owed)
-2. Separate into **creditors** (positive balance) and **debtors** (negative balance)
-3. Greedily match the largest debtor with the largest creditor
-4. Record the transaction, reduce both balances, repeat
+1. Computes each member's **net balance** (total paid − total owed).
+2. Separates the group into **creditors** (positive balance) and **debtors** (negative balance).
+3. Greedily matches the largest debtor with the largest creditor.
+4. Records the transaction, reduces both balances, and repeats the cycle.
 
-This minimizes the number of transactions required to settle all debts — e.g., 5 people with 10 debts might only need 4 transactions.
+This minimizes the number of transactions required to settle all debts — for example, 5 people with 10 tangled debts might only need 4 simple transactions to get completely even.
 
 ---
 
 ## 📁 Folder Structure
 
-```
+```text
 src/
 ├── components/
 │   ├── analytics/    # AnalyticsDashboard (Recharts)
@@ -103,36 +95,28 @@ src/
 │   └── expenseService.js
 └── utils/
     └── debtSimplifier.js
-```
 
----
-
-## 🚀 Setup Instructions
-
-### 1. Clone the repository
-```bash
-git clone https://github.com/YOUR_USERNAME/splitsmart.git
+🚀 Setup Instructions
+1. Clone the repository
+Bash
+git clone [https://github.com/varanasimahendra7-star/SplitSmart.git](https://github.com/varanasimahendra7-star/SplitSmart.git)
 cd splitsmart
-```
-
-### 2. Install dependencies
-```bash
+2. Install dependencies
+Bash
 npm install
-```
+3. Set up Firebase
+Go to Firebase Console
 
-### 3. Set up Firebase
+Create a new project and enable Authentication (Google Sign-in)
 
-1. Go to [Firebase Console](https://console.firebase.google.com)
-2. Create a new project
-3. Enable **Authentication** → Google Sign-in provider
-4. Create a **Firestore Database** (start in test mode)
-5. Register a **Web App** and copy the config
+Create a Firestore Database
 
-### 4. Add Firebase config
+Register a Web App and copy the config object.
 
-Open `src/services/firebase.js` and replace the placeholder values:
+4. Add Firebase config
+Open src/services/firebase.js and replace the placeholder values:
 
-```js
+JavaScript
 const firebaseConfig = {
   apiKey:            "YOUR_API_KEY",
   authDomain:        "YOUR_AUTH_DOMAIN",
@@ -141,13 +125,10 @@ const firebaseConfig = {
   messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
   appId:             "YOUR_APP_ID",
 }
-```
+5. Firestore Security Rules
+To secure the database, apply these rules in the Firebase Console → Firestore → Rules:
 
-### 5. Firestore Security Rules (recommended)
-
-In Firebase Console → Firestore → Rules:
-
-```
+JavaScript
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -165,44 +146,17 @@ service cloud.firestore {
     }
   }
 }
-```
-
-### 6. Run the app
-```bash
+6. Run the app
+Bash
 npm run dev
-```
+The app will run locally at http://localhost:5173
 
-App runs at `http://localhost:5173`
+🌐 Deployment
+This application is configured for seamless deployment on Vercel.
 
----
-
-## 🌐 Deployment (Vercel)
-
-```bash
+Bash
 npm run build
-```
+Note on Routing: A vercel.json file is included in the root directory to rewrite all traffic to index.html. This ensures that protected routes resolve correctly upon page refresh in the React Single Page Application (SPA).
 
-Then push to GitHub and import the repo in [Vercel](https://vercel.com). Zero config needed for Vite projects.
-
----
-
-## 📊 Evaluation Rubric Coverage
-
-| Criteria               | Implementation                                           |
-|------------------------|----------------------------------------------------------|
-| Problem Statement      | Real problem, personal pain point, non-trivial solution  |
-| React Fundamentals     | All hooks, controlled forms, lists, conditional rendering|
-| Advanced React         | useMemo, useCallback, lazy, Suspense, custom hooks       |
-| Backend Integration    | Firebase Auth, Firestore CRUD, real-time onSnapshot      |
-| UI/UX                  | Dark theme, loading/empty/error states, responsive       |
-| Code Quality           | Separation of concerns, custom hooks, clean structure    |
-| Functionality          | All features working end-to-end                          |
-| Demo & Explanation     | Architecture is self-documenting via comments            |
-
----
-
-## 👨‍💻 Author
-
-Built as an end-term project for *Building Web Applications with React* — Batch 2029.
-
-> "Build something you'd be proud to show in an interview."
+👨‍💻 Author
+Varanasi Mahendra
